@@ -1,4 +1,6 @@
 import { useNavigate } from 'react-router-dom';
+import Button from '../components/Button/Button';
+
 
 const HomePage = () => {
   const navigate = useNavigate();
@@ -31,26 +33,13 @@ const HomePage = () => {
         Det klassiska spelet
       </p>
 
-      <button
-        onClick={() => navigate('/game')}
-        style={{
-          marginTop: '40px',
-          padding: '16px 48px',
-          backgroundColor: '#00f0f0',
-          color: '#1a1a2e',
-          border: 'none',
-          borderRadius: '4px',
-          fontSize: '24px',
-          fontWeight: 'bold',
-          cursor: 'pointer',
-          fontFamily: 'monospace',
-          letterSpacing: '4px',
-        }}
-        aria-label="Start playing Tetris"
-        autoFocus
-      >
-        SPELA
-      </button>
+      <Button
+  onClick={() => navigate('/game')}
+  variant="primary"
+  ariaLabel="Start playing Tetris"
+>
+  SPELA
+</Button>
 
       <div style={{ marginTop: '40px', color: '#555', fontSize: '12px', lineHeight: '2' }}>
         <p style={{ margin: 0 }}>← → Flytta</p>

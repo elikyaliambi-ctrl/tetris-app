@@ -3,6 +3,9 @@ import { useTetris } from '../hooks/useTetris';
 import Board from '../components/Board/Board';
 import ScoreBoard from '../components/ScoreBoard/ScoreBoard';
 import GameOver from '../components/GameOver/GameOver';
+import VoiceControl from '../components/VoiceControl/VoiceControl';
+import Button from '../components/Button/Button';
+
 
 const GamePage = () => {
   const { state, dispatch } = useTetris();
@@ -58,23 +61,14 @@ const GamePage = () => {
           />
 
           {/* Knappar */}
-          <button
-            onClick={!state.currentPiece ? handleRestart : handlePause}
-            style={{
-              padding: '12px',
-              backgroundColor: state.isPaused ? '#00f000' : '#f0a000',
-              color: '#1a1a2e',
-              border: 'none',
-              borderRadius: '4px',
-              fontSize: '14px',
-              fontWeight: 'bold',
-              cursor: 'pointer',
-              fontFamily: 'monospace',
-            }}
-            aria-label={!state.currentPiece ? 'Start game' : state.isPaused ? 'Resume game' : 'Pause game'}
-          >
-            {!state.currentPiece ? 'STARTA' : state.isPaused ? 'FORTSÄTT' : 'PAUSA'}
-          </button>
+          <Button
+  onClick={!state.currentPiece ? handleRestart : handlePause}
+  variant={state.isPaused ? 'success' : 'warning'}
+  ariaLabel={!state.currentPiece ? 'Start game' : state.isPaused ? 'Resume game' : 'Pause game'}
+  fullWidth
+>
+  {!state.currentPiece ? 'STARTA' : state.isPaused ? 'FORTSÄTT' : 'PAUSA'}
+</Button>
 
           {/* Kontroller-info */}
           <div
@@ -94,6 +88,10 @@ const GamePage = () => {
             <p style={{ margin: 0 }}>↓ Snabbare</p>
             <p style={{ margin: 0 }}>P Pausa</p>
           </div>
+          <VoiceControl
+            onCommand={(command) => dispatch({ type: command as any })}
+            isGameActive={!!state.currentPiece && !state.gameOver}
+          />
         </div>
       </div>
     </main>

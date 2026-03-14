@@ -1,4 +1,6 @@
 import { memo } from 'react';
+import Button from '../Button/Button';
+
 
 interface GameOverProps {
   score: number;
@@ -33,26 +35,13 @@ const GameOver = memo(({ score, onRestart }: GameOverProps) => {
       <p style={{ color: '#888', fontSize: '18px' }}>
         Slutpoäng: <span style={{ color: '#00f0f0' }}>{score}</span>
       </p>
-      <button
-        onClick={onRestart}
-        autoFocus
-        style={{
-          marginTop: '20px',
-          padding: '12px 32px',
-          backgroundColor: '#00f0f0',
-          color: '#1a1a2e',
-          border: 'none',
-          borderRadius: '4px',
-          fontSize: '18px',
-          fontWeight: 'bold',
-          cursor: 'pointer',
-          fontFamily: 'monospace',
-        }}
-        // Tillgänglighet – tydlig label för skärmläsare
-        aria-label="Restart game"
-      >
-        SPELA IGEN
-      </button>
+      <Button
+  onClick={onRestart}
+  variant="primary"
+  ariaLabel="Restart game"
+>
+  SPELA IGEN
+</Button>
     </div>
   );
 });
