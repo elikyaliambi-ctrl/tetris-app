@@ -21,26 +21,26 @@ const ScoreBoard = memo(({ score, level, lines }: ScoreBoardProps) => {
         color: 'white',
         fontFamily: 'monospace',
       }}
-      // Tillgänglighet – uppdateras automatiskt för skärmläsare
       aria-live="polite"
       aria-label="Game statistics"
+      role="region"        // 👈 NYTT
     >
-      <div>
-        <p style={{ color: '#888', margin: 0, fontSize: '12px' }}>POÄNG</p>
+      <div role="status" aria-label={`Score: ${score}`}>  // 👈 NYTT
+        <p style={{ color: '#aaaaaa', margin: 0, fontSize: '12px' }}>POÄNG</p>
         <p style={{ color: '#00f0f0', margin: 0, fontSize: '24px', fontWeight: 'bold' }}>
           {score}
         </p>
       </div>
 
-      <div>
-        <p style={{ color: '#888', margin: 0, fontSize: '12px' }}>LEVEL</p>
+      <div role="status" aria-label={`Level: ${level}`}>  // 👈 NYTT
+        <p style={{ color: '#aaaaaa', margin: 0, fontSize: '12px' }}>LEVEL</p>
         <p style={{ color: '#f0a000', margin: 0, fontSize: '24px', fontWeight: 'bold' }}>
           {level}
         </p>
       </div>
 
-      <div>
-        <p style={{ color: '#888', margin: 0, fontSize: '12px' }}>RADER</p>
+      <div role="status" aria-label={`Lines cleared: ${lines}`}>  // 👈 NYTT
+        <p style={{ color: '#aaaaaa', margin: 0, fontSize: '12px' }}>RADER</p>
         <p style={{ color: '#00f000', margin: 0, fontSize: '24px', fontWeight: 'bold' }}>
           {lines}
         </p>

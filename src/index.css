@@ -13,3 +13,24 @@ button:focus-visible {
   outline: 3px solid #00f0f0;
   outline-offset: 2px;
 }
+/* Tillgänglighet – visa fokus tydligt för tangentbordsanvändare */
+*:focus-visible {
+  outline: 3px solid #00f0f0;
+  outline-offset: 2px;
+}
+
+/* Tillgänglighet – respektera om användaren vill ha mindre rörelse */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation: none !important;
+    transition: none !important;
+  }
+}
+
+/* Tillgänglighet – högre kontrast för synskadade */
+@media (prefers-contrast: high) {
+  body {
+    background-color: #000000;
+    color: #ffffff;
+  }
+}

@@ -26,6 +26,9 @@ const GamePage = () => {
         padding: '20px',
         fontFamily: 'monospace',
       }}
+      tabIndex={-1}
+      aria-label='Tetris game'
+      role='application'
     >
       <h1 style={{ color: '#00f0f0', marginBottom: '20px', letterSpacing: '8px' }}>
         TETRIS
