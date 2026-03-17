@@ -23,7 +23,7 @@ const ScoreBoard = memo(({ score, level, lines }: ScoreBoardProps) => {
       }}
       aria-live="polite"
       aria-label="Game statistics"
-      role="region"        // 👈 NYTT
+      role="region"      
     >
       <div role="status" aria-label={`Score: ${score}`}>  // 👈 NYTT
         <p style={{ color: '#aaaaaa', margin: 0, fontSize: '12px' }}>POÄNG</p>

@@ -8,7 +8,7 @@ import {
 } from '../utils/tetrisLogic';
 import type { GameState } from '../types/tetris';
 
-// Startläget för spelet
+// Start för spelet
 const initialState: GameState = {
   board: createEmptyBoard(),
   currentPiece: null,
@@ -20,7 +20,7 @@ const initialState: GameState = {
   isPaused: false,
 };
 
-// Alla möjliga händelser i spelet
+// Alla händelser i spelet
 type Action =
   | { type: 'START_GAME' }
   | { type: 'MOVE_LEFT' }
@@ -31,7 +31,7 @@ type Action =
   | { type: 'TOGGLE_PAUSE' }
   | { type: 'TICK' };
 
-// Reducern – tar emot state + händelse och returnerar nytt state
+// Reducern, tar emot state o händelse o returnerar nytt state
 function tetrisReducer(state: GameState, action: Action): GameState {
   if (state.gameOver && action.type !== 'START_GAME') return state;
   if (state.isPaused && action.type !== 'TOGGLE_PAUSE') return state;
@@ -68,7 +68,7 @@ function tetrisReducer(state: GameState, action: Action): GameState {
 
     case 'ROTATE': {
       if (!state.currentPiece) return state;
-      // Rotera formen 90 grader medurs
+      // Rotera formen 90 grader 
       const rotated = state.currentPiece.shape[0].map((_, i) =>
         state.currentPiece!.shape.map(row => row[i]).reverse()
       );
@@ -86,12 +86,12 @@ function tetrisReducer(state: GameState, action: Action): GameState {
       if (!state.currentPiece) return state;
       const newPos = { ...state.position, y: state.position.y + 1 };
 
-      // Kan biten röra sig nedåt?
+      // Kan biten röra sig nedåt
       if (isValidMove(state.board, state.currentPiece.shape, newPos)) {
         return { ...state, position: newPos };
       }
 
-      // Biten har landat – placera den på brädet
+      // Biten har landat, placera den på brädet
       const newBoard = state.board.map(row => [...row]);
       state.currentPiece.shape.forEach((row, rowIdx) => {
         row.forEach((cell, colIdx) => {
@@ -114,7 +114,7 @@ function tetrisReducer(state: GameState, action: Action): GameState {
       const newLevel = Math.floor(newLines / 10);
       const newScore = state.score + calculateScore(linesCleared, state.level);
 
-      // Ny bit – är spelet över?
+      // Ny bit, är spelet över?
       const nextPiece = randomTetromino();
       const startPos = { x: 4, y: 0 };
       const gameOver = !isValidMove(clearedBoard, nextPiece.shape, startPos);
@@ -140,7 +140,7 @@ function tetrisReducer(state: GameState, action: Action): GameState {
 export const useTetris = () => {
   const [state, dispatch] = useReducer(tetrisReducer, initialState);
 
-  // Automatisk nedåtrörelse baserat på level
+  // Automatisk rörelse nerpt baserat på level
   useEffect(() => {
     if (state.gameOver || state.isPaused || !state.currentPiece) return;
     const speed = Math.max(100, 800 - state.level * 70);

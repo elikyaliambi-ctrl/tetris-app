@@ -10,7 +10,6 @@ interface BoardProps {
 }
 
 const Board = ({ board, currentPiece, position }: BoardProps) => {
-  // Kombinerar brädet med den aktiva biten – räknas bara om när något ändras
   const displayBoard = useMemo(() => {
     const newBoard = board.map(row => [...row]);
 
