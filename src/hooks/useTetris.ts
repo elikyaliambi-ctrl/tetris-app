@@ -68,7 +68,7 @@ function tetrisReducer(state: GameState, action: Action): GameState {
 
     case 'ROTATE': {
       if (!state.currentPiece) return state;
-      // Rotera formen 90 grader 
+      // Rotera formen 90 grader
       const rotated = state.currentPiece.shape[0].map((_, i) =>
         state.currentPiece!.shape.map(row => row[i]).reverse()
       );
@@ -79,6 +79,56 @@ function tetrisReducer(state: GameState, action: Action): GameState {
         };
       }
       return state;
+    }
+
+    // biten faller direkt ntill botten när man trycker mellanslag
+    case 'HARD_DROP': {
+      if (!state.currentPiece) return state;
+
+      // Hitta hur långt ned biten kan falla
+      let newY = state.position.y;
+      while (isValidMove(state.board, state.currentPiece.shape, { x: state.position.x, y: newY + 1 })) {
+        newY++;
+      }
+
+      // Placera biten på det lägsta möjliga positionen
+      const newBoard = state.board.map(row => [...row]);
+      state.currentPiece.shape.forEach((row, rowIdx) => {
+        row.forEach((cell, colIdx) => {
+          if (cell !== 0) {
+            const y = newY + rowIdx;
+            const x = state.position.x + colIdx;
+            if (y >= 0) {
+              newBoard[y][x] = [
+                state.currentPiece!.type,
+                state.currentPiece!.color,
+              ];
+            }
+          }
+        });
+      });
+
+      // Rensa fyllda rader
+      const { newBoard: clearedBoard, linesCleared } = clearLines(newBoard);
+      const newLines = state.lines + linesCleared;
+      const newLevel = Math.floor(newLines / 10);
+      const newScore = state.score + calculateScore(linesCleared, state.level);
+
+      // Ny bit, är spelet över?
+      const nextPiece = randomTetromino();
+      const startPos = { x: 4, y: 0 };
+      const gameOver = !isValidMove(clearedBoard, nextPiece.shape, startPos);
+
+      return {
+        ...state,
+        board: clearedBoard,
+        currentPiece: nextPiece,
+        position: startPos,
+        score: newScore,
+        level: newLevel,
+        lines: newLines,
+        gameOver,
+      };
     }
 
     case 'TICK':

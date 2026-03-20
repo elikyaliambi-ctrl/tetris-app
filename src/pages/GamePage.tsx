@@ -48,7 +48,11 @@ const GamePage = () => {
             position={state.position}
           />
           {state.gameOver && (
-            <GameOver score={state.score} onRestart={handleRestart} />
+           <GameOver
+           score={state.score}
+           level={state.level}
+           onRestart={handleRestart}
+            />
           )}
         </div>
 

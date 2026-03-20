@@ -16,7 +16,10 @@ const VoiceControl = ({ onCommand, isGameActive }: VoiceControlProps) => {
     try {
       // Be om tillstånd att använda mikrofonen
       const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-      const mediaRecorder = new MediaRecorder(stream);
+      const mimeType = MediaRecorder.isTypeSupported('audio/webm') 
+      ? 'audio/webm' 
+      : 'audio/ogg';
+      const mediaRecorder = new MediaRecorder(stream, { mimeType });
       const audioChunks: BlobPart[] = [];
 
       setIsRecording(true);
@@ -32,8 +35,8 @@ const VoiceControl = ({ onCommand, isGameActive }: VoiceControlProps) => {
         setStatus('loading');
         stream.getTracks().forEach(track => track.stop());
 
-        const audioBlob = new Blob(audioChunks, { type: 'audio/wav' });
-        await sendToAPI(audioBlob);
+        const audioBlob = new Blob(audioChunks, { type: mimeType });
+        await sendToAPI(audioBlob, mimeType);
         setIsRecording(false);
       };
 
@@ -48,11 +51,12 @@ const VoiceControl = ({ onCommand, isGameActive }: VoiceControlProps) => {
     }
   }, [isGameActive, isRecording]);
 
-  const sendToAPI = async (audioBlob: Blob) => {
+  const sendToAPI = async (audioBlob: Blob, mimeType: string) => {
     try {
       const form = new FormData();
-      form.append('file', audioBlob, 'voice.wav');
-      form.append('language', 'en');
+      const extension = mimeType.includes('webm') ? 'webm' : 'ogg';
+      form.append('file', audioBlob, `voice.${extension}`);
+      form.append('language', 'english');
 
       const response = await fetch('https://api.apyhub.com/stt/file', {
         method: 'POST',
@@ -63,6 +67,7 @@ const VoiceControl = ({ onCommand, isGameActive }: VoiceControlProps) => {
       });
 
       const data = await response.json();
+      console.log('API svar:', data);
       // API:t returnerar texten i data.data
       const transcript: string = data?.data?.toLowerCase() ?? '';
 
