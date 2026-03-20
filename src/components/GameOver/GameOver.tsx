@@ -58,7 +58,7 @@ const GameOver = memo(({ score, level, onRestart }: GameOverProps) => {
       aria-modal="true"
     >
       <h2 style={{ color: '#f00000', fontSize: '48px', margin: 0 }}>
-        GAME OVER
+        DU TORSKADE!
       </h2>
       <p style={{ color: '#888', fontSize: '18px', margin: 0 }}>
         Slutpoäng: <span style={{ color: '#00f0f0' }}>{score}</span>
