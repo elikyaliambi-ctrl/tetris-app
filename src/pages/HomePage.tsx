@@ -50,7 +50,7 @@ const HomePage = () => {
           variant="primary"
           ariaLabel="Start playing Tetris"
         >
-          SPELA
+          SPELA CHIPPES TETRIS
         </Button>
       </motion.div>
 
