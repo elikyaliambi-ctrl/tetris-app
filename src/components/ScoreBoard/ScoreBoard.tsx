@@ -25,21 +25,21 @@ const ScoreBoard = memo(({ score, level, lines }: ScoreBoardProps) => {
       aria-label="Game statistics"
       role="region"      
     >
-      <div role="status" aria-label={`Score: ${score}`}>  // 👈 NYTT
+      <div role="status" aria-label={`Score: ${score}`}>
         <p style={{ color: '#aaaaaa', margin: 0, fontSize: '12px' }}>POÄNG</p>
         <p style={{ color: '#00f0f0', margin: 0, fontSize: '24px', fontWeight: 'bold' }}>
           {score}
         </p>
       </div>
 
-      <div role="status" aria-label={`Level: ${level}`}>  // 👈 NYTT
+      <div role="status" aria-label={`Level: ${level}`}>
         <p style={{ color: '#aaaaaa', margin: 0, fontSize: '12px' }}>LEVEL</p>
         <p style={{ color: '#f0a000', margin: 0, fontSize: '24px', fontWeight: 'bold' }}>
           {level}
         </p>
       </div>
 
-      <div role="status" aria-label={`Lines cleared: ${lines}`}>  // 👈 NYTT
+      <div role="status" aria-label={`Lines cleared: ${lines}`}> 
         <p style={{ color: '#aaaaaa', margin: 0, fontSize: '12px' }}>RADER</p>
         <p style={{ color: '#00f000', margin: 0, fontSize: '24px', fontWeight: 'bold' }}>
           {lines}
